@@ -1,5 +1,14 @@
-# Vue 3 + Vite
+## vue.js 项目模板
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+1. vue3
+2. vite
+3. vitest
+4. tailwindcss
+5. daisyui
+6. mock-service-worker
 
-Learn more about IDE Support for Vue in the [Vue Docs Scaling up Guide](https://vuejs.org/guide/scaling-up/tooling.html#ide-support).
+## ToDo
+
+0. 完成通用请求错误提示
+1. 完成登录功能 UI
+2. TDD 登录功能数据控制

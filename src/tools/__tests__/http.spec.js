@@ -22,7 +22,7 @@ function mockReply(status, data = null) {
 describe("测试请求客户端", () => {
   beforeEach(() => {
     mockHttp.reset();
-  })
+  });
 
   it(`当有 token 的时候, 应该添加 ${TOKEN_HEADER_KEY} 字段到 header 中`, async () => {
     const token = "token-string";
