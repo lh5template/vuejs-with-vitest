@@ -1,0 +1,37 @@
+{
+  "name": "temp-demo",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite . --port=8080",
+    "build": "vite build",
+    "test": "vitest",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@vue/test-utils": "^2.4.6",
+    "axios": "^1.7.8",
+    "pinia": "^2.2.8",
+    "vue": "^3.5.13",
+    "vue-router": "^4.5.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.2.1",
+    "autoprefixer": "^10.4.20",
+    "axios-mock-adapter": "^2.1.0",
+    "daisyui": "^4.12.14",
+    "happy-dom": "^15.11.7",
+    "msw": "^2.6.6",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.15",
+    "vite": "^6.0.1",
+    "vitest": "^2.1.6",
+    "vue-router-mock": "^1.1.0"
+  },
+  "msw": {
+    "workerDirectory": [
+      ""
+    ]
+  }
+}
