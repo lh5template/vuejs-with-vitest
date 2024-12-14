@@ -1,4 +1,3 @@
-import { extend } from "@/tools";
 import { http, requestWithMapper } from "@/tools/http";
 import { loginResponseMapper, loginRequestMapper } from "./mappers/login";
 
