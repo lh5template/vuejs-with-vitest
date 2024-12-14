@@ -1,7 +1,7 @@
-export function loginMapper(data) {
-  return {
-    ...data,
-    avatar_url: data.avatar_url,
-    nickname: data.nickname,
-  }
+// 登录接口响应数据格式映射
+export function loginMapper(data = {}) {
+  return Object.assign(data, {
+    avatar_url: data.avatar,
+    nickname: data.username,
+  });
 }

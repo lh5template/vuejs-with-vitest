@@ -1,10 +1,13 @@
-import { http, registerMapper, removeMapper } from "@/tools/http";
+import { http } from "@/tools/http";
 import { loginMapper } from "./mappers/login";
 
-// 登录
-export const auth = (data) => {
-  const mapper = registerMapper(loginMapper);
-  const response = http.post("/api/auth", data);
-  removeMapper(mapper);
-  return response;
+/**
+ * @description 登录接口
+ * POST /api/auth
+ * @param {Object} data -  data
+ * @returns {Promise<AxiosResponse<any>>}
+ */
+export const login = async (data) => {
+  const res = await http.post("/api/login", data);
+  return loginMapper(res);
 };
