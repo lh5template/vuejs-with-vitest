@@ -1,5 +1,9 @@
 import { v4 as uuidv4 } from "uuid";
 import { toRaw, isRef, isProxy, unref } from "vue";
+import MD5 from "crypto-js/md5";
+
+// 导出常用的工具函数
+export const extend = Object.assign;
 
 /**
  * 开发环境下的日志打印函数
@@ -60,3 +64,11 @@ export const toRawObject = (data) => {
   }
   return x;
 }
+
+/**
+
+ * 返回字符串的md5值
+ * @param {string} str - 最小值
+ * @returns {string} 返回值
+ */
+export const md5 = (str) => MD5(str).toString();

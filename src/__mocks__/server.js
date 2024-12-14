@@ -8,5 +8,5 @@ for (const item in HandlerMod) {
 }
 const worker = setupWorker(...handlers);
 
-export const startMockServer = () => worker.start();
+export const startMockServer = () => worker.start({ onUnhandledRequest: "bypass" });
 export const closeMockServer = () => worker.close();
