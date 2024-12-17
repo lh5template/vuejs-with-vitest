@@ -12,23 +12,23 @@ export const useAuth = defineStore("auth", () => {
     avatar_url: "",
     token: "",
   };
-  const authUesr = useLocalStorage(AUTH_USER_KEY, defaultUser);
+  const authUser = useLocalStorage(AUTH_USER_KEY, defaultUser);
 
   // 登录
   async function login(data) {
     const res = await api.login(data);
     saveToken(res.token);
-    authUesr.value = res;
+    authUser.value = res;
   }
 
   // 注销
   function logout() {
-    authUesr.value = defaultUser;
+    authUser.value = defaultUser;
     deleteToken();
   }
 
   return {
-    authUesr,
+    authUser,
     logout,
     login,
   };
