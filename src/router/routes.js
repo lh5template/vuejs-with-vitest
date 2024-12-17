@@ -11,6 +11,9 @@ export const routes = [
     path: "/",
     name: RouteNames.Home,
     component: Home,
+    meta: {
+      useLayout: true,
+    },
   },
   {
     path: "/login",

@@ -1,9 +1,9 @@
 <template>
   <div>
     <h2>首页</h2>
-    <p>用户名: {{ authUesr.nickname }}</p>
-    <img :src="authUesr.avatar_url" />
-    <button @click="handleLogout">退出登录</button>
+    <p>用户名: {{ authUser.nickname }}</p>
+    <img :src="authUser.avatar_url" />
+    <button @click="handleLogout" class="btn btn-primary text-white">退出登录</button>
   </div>
 </template>
 
@@ -14,7 +14,7 @@ import { storeToRefs } from "pinia";
 
 const store = useAuth();
 const {
-  authUesr,
+  authUser,
 } = storeToRefs(store);
 
 function handleLogout() {
