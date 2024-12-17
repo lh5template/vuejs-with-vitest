@@ -1,11 +1,11 @@
+import { extend, isCallable, isObject, toRawObject, uuid } from "@/tools";
 import axios from "axios";
-import { hasToken, getToken } from "./token";
 import { httpErrorHandler } from "./httpErrorHandler";
-import { uuid, isObject, toRawObject, isCallable, extend } from "@/tools";
+import { getToken, hasToken } from "./token";
 
 //////////////////////////////////////////////
 // create http instance with default config //
-//////////////////////////////////////////////.
+////////////////////////////////////////////// .
 export const http = axios.create({
   timeout: 1000 * 5, // 5s
   headers: {
@@ -70,7 +70,7 @@ export function requestWithMapper(opts = {}) {
   }, opts);
 
   const { requestFunc, requestMapper, requestParamsMapper, requestDataMapper, responseMapper } = options;
-  if(!isCallable(requestFunc)) {
+  if (!isCallable(requestFunc)) {
     throw new Error("[requestWithMapper]requestFunc must be a function");
   }
 
@@ -84,7 +84,7 @@ export function requestWithMapper(opts = {}) {
       return config;
     });
   }
-  if(isCallable(requestDataMapper)) {
+  if (isCallable(requestDataMapper)) {
     requestInterceptorArray.push((config) => {
       config.data = requestDataMapper(config.data);
       return config;
@@ -95,11 +95,11 @@ export function requestWithMapper(opts = {}) {
   });
 
   let responseInterceptor = null;
-  if(isCallable(responseMapper)) {
+  if (isCallable(responseMapper)) {
     responseInterceptor = (response) => responseMapper(response);
     http.interceptors.response.use(responseInterceptor);
   }
-  
+
   // 发送请求后需要移除interceptor
   return requestFunc().finally(() => {
     requestInterceptorArray.forEach((item) => {

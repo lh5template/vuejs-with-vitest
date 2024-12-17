@@ -1,5 +1,5 @@
 export const __TOKEN_KEY__ = "__auth_token__";
-export const storage = window.localStorage
+export const storage = window.localStorage;
 
 export const getToken = () => storage.getItem(__TOKEN_KEY__);
 

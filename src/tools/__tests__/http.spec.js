@@ -1,8 +1,8 @@
-import AxiosMockAdapter from "axios-mock-adapter";
-import { TOKEN_HEADER_KEY, REQUEST_ID_KEY, http } from "@/tools/http";
-import { saveToken } from "@/tools/token";
-import { beforeEach, describe, it, vi, expect } from "vitest";
+import { http, REQUEST_ID_KEY, TOKEN_HEADER_KEY } from "@/tools/http";
 import * as handler from "@/tools/httpErrorHandler";
+import { saveToken } from "@/tools/token";
+import AxiosMockAdapter from "axios-mock-adapter";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { reactive, ref } from "vue";
 
 // 专门用于单元测试的 axios adapater
@@ -27,10 +27,10 @@ describe("测试请求客户端", () => {
   beforeEach(() => {
     mockHttp.reset();
   });
-  
+
   it(`发送请求之前应该自动将vue的响应式数据转化为普通的对象数据`, async () => {
     const rawData = { foo: "bar", baz: 123 };
-    
+
     const params = reactive(rawData);
     const data = ref(rawData);
 

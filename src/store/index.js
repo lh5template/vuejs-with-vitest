@@ -8,4 +8,4 @@ export function setupStore(app) {
   app.use(createPinia());
 }
 
-export * from "./auth"
+export * from "./auth";

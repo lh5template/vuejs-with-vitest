@@ -1,10 +1,6 @@
-import {
-  VueRouterMock,
-  createRouterMock,
-  injectRouterMock,
-} from "vue-router-mock";
-import { beforeEach, vi } from "vitest";
 import { config } from "@vue/test-utils";
+import { beforeEach, vi } from "vitest";
+import { createRouterMock, injectRouterMock, VueRouterMock } from "vue-router-mock";
 
 function setupRouterMock() {
   const router = createRouterMock({

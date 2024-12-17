@@ -1,8 +1,7 @@
-import { __TOKEN_KEY__, storage, saveToken,getToken, hasToken, removeToken } from "@/tools/token";
-import { it, describe, expect, beforeEach } from "vitest";
+import { __TOKEN_KEY__, getToken, hasToken, removeToken, saveToken, storage } from "@/tools/token";
+import { beforeEach, describe, expect, it } from "vitest";
 
 describe("token", () => {
-
   beforeEach(() => {
     storage.clear();
   });
@@ -11,7 +10,7 @@ describe("token", () => {
     const mockToken = "mock-token-string";
     saveToken(mockToken);
 
-    expect(storage.getItem(__TOKEN_KEY__)).toBe(mockToken)
+    expect(storage.getItem(__TOKEN_KEY__)).toBe(mockToken);
   });
 
   it("get token", () => {
@@ -24,7 +23,7 @@ describe("token", () => {
   });
 
   it("has token", () => {
-    expect(hasToken()).toBe(false)
+    expect(hasToken()).toBe(false);
 
     const mockToken = "mock-token-string";
     saveToken(mockToken);
@@ -32,12 +31,12 @@ describe("token", () => {
   });
 
   it("remove token", () => {
-    expect(hasToken()).toBe(false)
+    expect(hasToken()).toBe(false);
     const mockToken = "mock-token-string";
     saveToken(mockToken);
     expect(hasToken()).toBe(true);
 
     removeToken();
-    expect(hasToken()).toBe(false)
+    expect(hasToken()).toBe(false);
   });
 });

@@ -1,8 +1,8 @@
-import { createApp } from 'vue'
-import './style.css'
-import App from './App.vue'
-import { setupStore } from "@/store";
 import { setupRouter } from "@/router";
+import { setupStore } from "@/store";
+import { createApp } from "vue";
+import App from "./App.vue";
+import "./style.css";
 
 /**
  * 在开发环境下,启动模拟接口响应的 Mock Service Worker (msw)
@@ -27,8 +27,7 @@ async function setupApp() {
   const app = createApp(App);
   setupStore(app);
   await setupRouter(app);
-
-  app.mount('#app')
+  app.mount("#app");
 }
 
 /**
@@ -36,9 +35,9 @@ async function setupApp() {
  * 1. 启动 mock 服务接口
  * 2. 启动 App 实例
  */
-async function bootstrap() {
+async function run() {
   await setupMsw();
   await setupApp();
 }
 
-await bootstrap();
+await run();

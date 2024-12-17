@@ -1,7 +1,12 @@
-import { setupRouterGuards, setRouterInstance } from "@/router";
+import { setRouterInstance, setupRouterGuards } from "@/router";
 import { vi } from "vitest";
 import { createRouterMock } from "vue-router-mock";
 
+/**
+ * @description: 在单元测试中启动路由守卫
+ * @param {{ useRealNavigation?: boolean, runPerRouteGuards?: boolean, runInComponentGuards?: boolean }} [opts]
+ * @return {import("vue-router").Router}
+ */
 export function setupRouterMock(opts = {}) {
   const options = Object.assign({
     useRealNavigation: true,

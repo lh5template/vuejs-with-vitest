@@ -1,32 +1,29 @@
-import { describe, it, expect, beforeEach, vi } from "vitest";
-import { useAuthStore, AUTH_USER_KEY } from "@/store";
+import { AUTH_USER_KEY, useAuthStore } from "@/store";
 import { deleteToken } from "@/tools/token";
-
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 // 模拟登录请求响应
-vi.mock('@/api', () => ({
-  login: vi.fn(() => Promise.resolve({ token: 'mock-token-string' })),
+vi.mock("@/api", () => ({
+  login: vi.fn(() => Promise.resolve({ token: "mock-token-string" })),
 }));
 
-describe('auth store', () => {
-  
+describe("auth store", () => {
   beforeEach(() => {
     localStorage.clear();
     deleteToken();
   });
 
-
-  it('登录后应该设置保存登录用户信息', async () => {
+  it("登录后应该设置保存登录用户信息", async () => {
     expect(localStorage.getItem(AUTH_USER_KEY)).toBe(null);
 
     const store = useAuthStore();
     await store.login({});
-    expect(store.authUser.token).toBe('mock-token-string');
+    expect(store.authUser.token).toBe("mock-token-string");
 
-    expect(localStorage.getItem(AUTH_USER_KEY)).toBeTypeOf('string');
+    expect(localStorage.getItem(AUTH_USER_KEY)).toBeTypeOf("string");
   });
 
-  it('登录后应该设置保存token', async () => {
+  it("登录后应该设置保存token", async () => {
     expect(hasToken()).toBe(false);
 
     const store = useAuthStore();
@@ -35,11 +32,11 @@ describe('auth store', () => {
     expect(hasToken()).toBe(true);
   });
 
-  it('退出应该重置登录用户信息', () => {
+  it("退出应该重置登录用户信息", () => {
     expect().toBe();
   });
 
-  it('登录后应该设置删除token', () => {
+  it("登录后应该设置删除token", () => {
     expect().toBe();
   });
 });

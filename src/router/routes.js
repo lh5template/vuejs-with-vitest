@@ -3,8 +3,8 @@ import Login from "@/pages/Login.vue";
 
 export const RouteNames = {
   Login: "Login",
-  Home: "Home"
-}
+  Home: "Home",
+};
 
 export const routes = [
   {
@@ -17,9 +17,7 @@ export const routes = [
     name: RouteNames.Login,
     component: Login,
     meta: {
-      isPublic: true
-    }
+      isPublic: true,
+    },
   },
 ];
-
-

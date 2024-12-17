@@ -1,4 +1,4 @@
-import { md5, extend } from "@/tools";
+import { extend, md5 } from "@/tools";
 
 // 登录接口响应数据格式映射
 export function loginResponseMapper(data = {}) {

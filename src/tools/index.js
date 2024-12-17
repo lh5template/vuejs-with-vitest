@@ -1,6 +1,6 @@
-import { v4 as uuidv4 } from "uuid";
-import { toRaw, isRef, isProxy, unref } from "vue";
 import MD5 from "crypto-js/md5";
+import { v4 as uuidv4 } from "uuid";
+import { isProxy, isRef, toRaw, unref } from "vue";
 
 // 导出常用的工具函数
 export const extend = Object.assign;
@@ -57,13 +57,13 @@ export const uuid = () => {
  */
 export const toRawObject = (data) => {
   let x = data;
-  if(isProxy(data)) {
+  if (isProxy(data)) {
     x = toRaw(data);
-  } else if(isRef(data)) {
+  } else if (isRef(data)) {
     x = unref(data);
   }
   return x;
-}
+};
 
 /**
 

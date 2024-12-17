@@ -1,9 +1,9 @@
-import { createWebHashHistory, createRouter } from "vue-router";
-import { routes } from "./routes";
+import { createRouter, createWebHashHistory } from "vue-router";
 import { setupRouterGuards } from "./guards";
+import { routes } from "./routes";
 
-export * from "./routes";
 export * from "./guards";
+export * from "./routes";
 
 let _router;
 /**
@@ -31,7 +31,7 @@ export function getRouterInstance() {
 export function setupRouter(app) {
   const router = createRouter({
     history: createWebHashHistory(),
-    routes
+    routes,
   });
 
   setRouterInstance(router);
