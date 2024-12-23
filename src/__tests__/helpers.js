@@ -1,6 +1,6 @@
-import { setRouterInstance, setupRouterGuards } from "@/router";
 import { vi } from "vitest";
 import { createRouterMock } from "vue-router-mock";
+import { setRouterInstance, setupRouterGuards } from "@/router";
 
 /**
  * @description: 在单元测试中启动路由守卫

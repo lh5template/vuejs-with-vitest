@@ -1,6 +1,6 @@
-import { useResettableReactive } from "@/hooks/resettableReactive";
 import { describe, expect, it } from "vitest";
 import { isReactive } from "vue";
+import { useResettableReactive } from "@/hooks/resettableReactive";
 
 describe("测试 resettableReactive", () => {
   it("应该返回一个 Reactive 对象", () => {

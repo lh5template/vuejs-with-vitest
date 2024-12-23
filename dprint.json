@@ -6,7 +6,10 @@
   "typescript": {
     "lineWidth": 120,
     "quoteStyle": "alwaysDouble",
-    "quoteProps": "asNeeded"
+    "quoteProps": "asNeeded",
+    "module.sortImportDeclarations": "maintain",
+    "module.sortExportDeclarations": "maintain",
+    "mportDeclaration.sortNamedImports": "maintain"
   },
   "markup": {
     "printWidth": 120

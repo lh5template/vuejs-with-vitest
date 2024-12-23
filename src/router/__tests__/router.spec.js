@@ -1,7 +1,7 @@
+import { beforeEach, describe, expect, it } from "vitest";
+import { setupRouterMock } from "@test/helpers";
 import { RouteNames, routes } from "@/router";
 import { hasToken, removeToken, saveToken } from "@/tools/token";
-import { setupRouterMock } from "@test/helpers";
-import { beforeEach, describe, expect, it } from "vitest";
 
 describe("router", () => {
   let routerMock = null;

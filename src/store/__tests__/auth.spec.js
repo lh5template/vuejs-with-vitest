@@ -1,7 +1,7 @@
-import { AUTH_USER_KEY, useAuth } from "@/store";
-import { deleteToken, hasToken, deleteToken } from "@/tools/token";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { setActivePinia, createPinia } from "pinia";
+import { AUTH_USER_KEY, useAuth } from "@/store";
+import { deleteToken, hasToken, deleteToken } from "@/tools/token";
 
 // 模拟登录请求响应
 vi.mock("@/api", () => ({

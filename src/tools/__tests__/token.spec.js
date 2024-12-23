@@ -1,5 +1,12 @@
-import { __TOKEN_KEY__, getToken, hasToken, removeToken, saveToken, storage } from "@/tools/token";
 import { beforeEach, describe, expect, it } from "vitest";
+import {
+  __TOKEN_KEY__,
+  getToken,
+  hasToken,
+  removeToken,
+  saveToken,
+  storage,
+} from "@/tools/token";
 
 describe("token", () => {
   beforeEach(() => {

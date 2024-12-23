@@ -1,7 +1,7 @@
-import * as api from "@/api";
+import { defineStore } from "pinia";
 import { deleteToken, saveToken } from "@/tools/token";
 import { useLocalStorage } from "@vueuse/core";
-import { defineStore } from "pinia";
+import * as api from "@/api";
 
 export const AUTH_USER_KEY = "__auth_user__";
 export const useAuth = defineStore("auth", () => {

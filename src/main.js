@@ -1,6 +1,6 @@
+import { createApp } from "vue";
 import { setupRouter } from "@/router";
 import { setupStore } from "@/store";
-import { createApp } from "vue";
 import App from "./App.vue";
 import "./style.css";
 

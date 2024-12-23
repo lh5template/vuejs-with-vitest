@@ -1,8 +1,6 @@
-import { log } from "@/tools";
 import AsyncValidator from "async-validator";
 import { isRef, unref } from "vue";
-
-export * from "./rules/login";
+import { log } from "@/tools";
 
 /**
  * @description: 验证数据
@@ -28,3 +26,5 @@ export const validate = async (dataSource, rules) => {
     });
   });
 };
+
+export * from "./rules/login";

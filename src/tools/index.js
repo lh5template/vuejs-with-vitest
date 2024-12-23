@@ -1,6 +1,5 @@
 import MD5 from "crypto-js/md5";
 import { v4 as uuidv4 } from "uuid";
-import { isProxy, isRef, toRaw, unref } from "vue";
 
 // 导出常用的工具函数
 export const extend = Object.assign;
@@ -10,11 +9,11 @@ export const extend = Object.assign;
  * 仅在开发环境下输出日志信息
  * @param {...*} args - 要打印的参数列表
  */
-export function log(...args) {
+export const log = (...args) => {
   if (import.meta.env.DEV) {
     console.log(...args);
   }
-}
+};
 
 /**
  * 检查传入的参数是否为可调用的函数
@@ -51,22 +50,6 @@ export const uuid = () => {
 };
 
 /**
- * 将 Proxy 或 Ref 对象转换为原始对象
- * @param {Proxy<T>|Ref<T>} data - 需要转换的对象
- * @returns {object} 转换后的原始对象
- */
-export const toRawObject = (data) => {
-  let x = data;
-  if (isProxy(data)) {
-    x = toRaw(data);
-  } else if (isRef(data)) {
-    x = unref(data);
-  }
-  return x;
-};
-
-/**
-
  * 返回字符串的md5值
  * @param {string} str - 最小值
  * @returns {string} 返回值

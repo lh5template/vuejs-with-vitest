@@ -1,12 +1,14 @@
-import { extend, isCallable, isObject, toRawObject, uuid } from "@/tools";
 import axios from "axios";
+import { extend, isCallable, isObject, uuid } from "@/tools";
 import { httpErrorHandler } from "./httpErrorHandler";
 import { getToken, hasToken } from "./token";
 
 //////////////////////////////////////////////
 // create http instance with default config //
 //////////////////////////////////////////////
+export const baseURL = import.meta.env.VITE_BASE_URL;
 export const http = axios.create({
+  baseURL,
   timeout: 1000 * 5, // 5s
   headers: {
     Accept: "application/json",
@@ -16,13 +18,6 @@ export const http = axios.create({
 //////////////////////////////////////////
 // http global interceptors for request //
 //////////////////////////////////////////
-http.interceptors.request.use((config) => {
-  // convert vue reactive data to raw object
-  config.data = toRawObject(config.data);
-  config.params = toRawObject(config.params);
-  return config;
-});
-
 export const REQUEST_ID_KEY = "request_id";
 http.interceptors.request.use((config) => {
   // set request id
@@ -48,12 +43,7 @@ http.interceptors.request.use((config) => {
 // http global interceptors for response //
 ///////////////////////////////////////////
 http.interceptors.response.use(
-  (res) => {
-    if (res.status === 200) {
-      return res.data;
-    }
-    return Promise.reject(res);
-  },
+  (res) => res.status === 200 ? res.data : Promise.reject(res),
   (err) => httpErrorHandler(err),
 );
 
@@ -100,7 +90,7 @@ export function requestWithMapper(opts = {}) {
     http.interceptors.response.use(responseInterceptor);
   }
 
-  // 发送请求后需要移除interceptor
+  // auto remove interceptor after request sent
   return requestFunc().finally(() => {
     requestInterceptorArray.forEach((item) => {
       http.interceptors.request.eject(item);
