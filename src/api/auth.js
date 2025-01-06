@@ -1,4 +1,4 @@
-import { http, requestWithMapper } from "@/tools/http";
+import { getHttpInst, requestWithMapper } from "@/tools/http";
 import { loginRequestMapper, loginResponseMapper } from "./mappers/login";
 
 /**
@@ -9,7 +9,7 @@ import { loginRequestMapper, loginResponseMapper } from "./mappers/login";
  */
 export const login = (data) => {
   return requestWithMapper({
-    requestFunc: () => http.post("/api/login", data),
+    requestFunc: () => getHttpInst().post("/api/login", data),
     requestDataMapper: loginRequestMapper,
     responseMapper: loginResponseMapper,
   });

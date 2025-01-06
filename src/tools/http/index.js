@@ -86,7 +86,7 @@ export function requestWithMapper(opts = {}) {
   };
   const options = merge(defaultOpts, opts);
 
-  const { requestFunc, requestMapper, requestParamsMapper, requestDataMapper, responseMapper } = options;
+  const { httpInst, requestFunc, requestMapper, requestParamsMapper, requestDataMapper, responseMapper } = options;
   if (!isCallable(requestFunc)) {
     throw new Error("[requestWithMapper]requestFunc must be a function");
   }
@@ -107,19 +107,25 @@ export function requestWithMapper(opts = {}) {
       return config;
     });
   }
-  requestInterceptorArray.forEach(http.interceptors.request.use);
+  for (let i = 0; i < requestInterceptorArray.length; i++) {
+    const item = requestInterceptorArray[i];
+    httpInst.interceptors.request.use(item);
+  }
 
   let responseInterceptor = null;
   if (isCallable(responseMapper)) {
     responseInterceptor = (response) => responseMapper(response);
-    http.interceptors.response.use(responseInterceptor);
+    httpInst.interceptors.response.use(responseInterceptor);
   }
 
   // auto remove interceptor after request sent
   return requestFunc().finally(() => {
-    requestInterceptorArray.forEach(http.interceptors.request.eject);
+    for (let i = 0; i < requestInterceptorArray.length; i++) {
+      const item = requestInterceptorArray[i];
+      httpInst.interceptors.request.eject(item);
+    }
     if (!isNull(responseInterceptor)) {
-      http.interceptors.response.eject(responseInterceptor);
+      httpInst.interceptors.response.eject(responseInterceptor);
     }
   });
 }
