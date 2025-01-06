@@ -1,10 +1,11 @@
 import AxiosMockAdapter from "axios-mock-adapter";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { http, REQUEST_ID_KEY, TOKEN_HEADER_KEY } from "@/tools/http";
+import { getHttpInst, REQUEST_ID_KEY, TOKEN_HEADER_KEY } from "@/tools/http";
 import { saveToken } from "@/tools/token";
-import * as handler from "@/tools/httpErrorHandler";
+import * as handler from "@/tools/http/httpErrorHandler";
 
 // 专门用于单元测试的 axios adapater
+const http = getHttpInst();
 const mockHttp = new AxiosMockAdapter(http);
 
 // 发送请求
@@ -46,7 +47,7 @@ describe("测试请求客户端", () => {
     expect(lastRequest.headers[TOKEN_HEADER_KEY]).toBe(token);
   });
 
-  it(`当响应 status 为 200 的时候, 应该直接返回响应体`, async () => {
+  it("当响应 status 为 200 的时候, 应该直接返回响应体", async () => {
     const body = {
       msg: "response body",
     };

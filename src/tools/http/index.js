@@ -1,64 +1,90 @@
-import { extend, isCallable, isObject, uuid } from "@/tools";
 import axios from "axios";
+import { isCallable, isNull, isObject, merge, uuid } from "@/tools";
+import { getToken, hasToken } from "@/tools/token";
 import { httpErrorHandler } from "./httpErrorHandler";
-import { getToken, hasToken } from "./token";
+
+//////////////////////////////////////////////
+// get http instance                        //
+//////////////////////////////////////////////
+let httpInst = null;
+export function getHttpInst() {
+  if (isNull(httpInst)) {
+    httpInst = createHttpInst();
+  }
+  return httpInst;
+}
 
 //////////////////////////////////////////////
 // create http instance with default config //
 //////////////////////////////////////////////
 export const baseURL = import.meta.env.VITE_BASE_URL;
-export const http = axios.create({
-  baseURL,
-  timeout: 1000 * 5, // 5s
-  headers: {
-    Accept: "application/json",
-  },
-});
+function createHttpInst() {
+  const http = axios.create({
+    baseURL,
+    timeout: 1000 * 5, // 5s
+    headers: {
+      Accept: "application/json",
+    },
+  });
+
+  applyRequesetIdInterceptor(http);
+  applyTokenHeaderInterceptor(http);
+  applyResponseInterceptor(http);
+
+  return http;
+}
 
 //////////////////////////////////////////
 // http global interceptors for request //
 //////////////////////////////////////////
 export const REQUEST_ID_KEY = "request_id";
-http.interceptors.request.use((config) => {
-  // set request id
-  if (!isObject(config.params)) {
-    config.params = {};
-  }
-  config.params = Object.assign(config.params, {
-    [REQUEST_ID_KEY]: uuid(),
+function applyRequesetIdInterceptor(http) {
+  http.interceptors.request.use((config) => {
+    // set request id
+    if (!isObject(config.params)) {
+      config.params = {};
+    }
+    config.params = Object.assign(config.params, {
+      [REQUEST_ID_KEY]: uuid(),
+    });
+    return config;
   });
-  return config;
-});
+}
 
 export const TOKEN_HEADER_KEY = "Authorization";
-http.interceptors.request.use((config) => {
-  // set token after login
-  if (hasToken()) {
-    config.headers[TOKEN_HEADER_KEY] = getToken();
-  }
-  return config;
-});
+function applyTokenHeaderInterceptor(http) {
+  http.interceptors.request.use((config) => {
+    // set token after login
+    if (hasToken()) {
+      config.headers[TOKEN_HEADER_KEY] = getToken();
+    }
+    return config;
+  });
+}
 
 ///////////////////////////////////////////
 // http global interceptors for response //
 ///////////////////////////////////////////
-http.interceptors.response.use(
-  (res) => (res.status === 200 ? res.data : Promise.reject(res)),
-  (err) => httpErrorHandler(err),
-);
+function applyResponseInterceptor(http) {
+  http.interceptors.response.use(
+    (res) => (res.status === 200 ? res.data : Promise.reject(res)),
+    (err) => httpErrorHandler(err),
+  );
+}
 
 ///////////////////////////////////////////
 // send request with mapper functions    //
 ///////////////////////////////////////////
 export function requestWithMapper(opts = {}) {
   const defaultOpts = {
+    httpInst: getHttpInst(),
     requestFunc: null,
     requestMapper: null,
     requestParamsMapper: null,
     requestDataMapper: null,
     responseMapper: null,
   };
-  const options = extend(defaultOpts, opts);
+  const options = merge(defaultOpts, opts);
 
   const { requestFunc, requestMapper, requestParamsMapper, requestDataMapper, responseMapper } = options;
   if (!isCallable(requestFunc)) {
@@ -92,7 +118,7 @@ export function requestWithMapper(opts = {}) {
   // auto remove interceptor after request sent
   return requestFunc().finally(() => {
     requestInterceptorArray.forEach(http.interceptors.request.eject);
-    if (responseInterceptor) {
+    if (!isNull(responseInterceptor)) {
       http.interceptors.response.eject(responseInterceptor);
     }
   });

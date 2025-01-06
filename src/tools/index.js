@@ -1,8 +1,13 @@
 import MD5 from "crypto-js/md5";
 import { v4 as uuidv4 } from "uuid";
 
-// 导出常用的工具函数
-export const extend = Object.assign;
+/**
+ * 合并两个对象
+ * @param {Object} target - 目标对象
+ * @param {Object} source - 源对象
+ * @returns {Object} 返回合并后的对象
+ */
+export const merge = Object.assign;
 
 /**
  * 开发环境下的日志打印函数
@@ -28,6 +33,13 @@ export const isCallable = (fn) => typeof fn === "function";
  * @returns {boolean} - 如果值是对象（不包括null）则返回true，否则返回false
  */
 export const isObject = (val) => val !== null && typeof val === "object";
+
+/**
+ *  检查传入的值是否为 null
+ * @param {*} val 要检查的值
+ * @returns {boolean}
+ */
+export const isNull = (val) => val === null;
 
 /**
  * 生成一个 UUID (通用唯一标识符)
