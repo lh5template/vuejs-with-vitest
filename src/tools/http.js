@@ -1,5 +1,5 @@
-import axios from "axios";
 import { extend, isCallable, isObject, uuid } from "@/tools";
+import axios from "axios";
 import { httpErrorHandler } from "./httpErrorHandler";
 import { getToken, hasToken } from "./token";
 
@@ -43,7 +43,7 @@ http.interceptors.request.use((config) => {
 // http global interceptors for response //
 ///////////////////////////////////////////
 http.interceptors.response.use(
-  (res) => res.status === 200 ? res.data : Promise.reject(res),
+  (res) => (res.status === 200 ? res.data : Promise.reject(res)),
   (err) => httpErrorHandler(err),
 );
 
@@ -51,13 +51,14 @@ http.interceptors.response.use(
 // send request with mapper functions    //
 ///////////////////////////////////////////
 export function requestWithMapper(opts = {}) {
-  const options = extend({
+  const defaultOpts = {
     requestFunc: null,
     requestMapper: null,
     requestParamsMapper: null,
     requestDataMapper: null,
     responseMapper: null,
-  }, opts);
+  };
+  const options = extend(defaultOpts, opts);
 
   const { requestFunc, requestMapper, requestParamsMapper, requestDataMapper, responseMapper } = options;
   if (!isCallable(requestFunc)) {
@@ -80,9 +81,7 @@ export function requestWithMapper(opts = {}) {
       return config;
     });
   }
-  requestInterceptorArray.forEach((item) => {
-    http.interceptors.request.use(item);
-  });
+  requestInterceptorArray.forEach(http.interceptors.request.use);
 
   let responseInterceptor = null;
   if (isCallable(responseMapper)) {
@@ -92,9 +91,7 @@ export function requestWithMapper(opts = {}) {
 
   // auto remove interceptor after request sent
   return requestFunc().finally(() => {
-    requestInterceptorArray.forEach((item) => {
-      http.interceptors.request.eject(item);
-    });
+    requestInterceptorArray.forEach(http.interceptors.request.eject);
     if (responseInterceptor) {
       http.interceptors.response.eject(responseInterceptor);
     }
