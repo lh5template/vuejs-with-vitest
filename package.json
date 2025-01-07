@@ -1,8 +1,14 @@
 {
-  "name": "temp-demo",
-  "private": true,
-  "version": "0.0.0",
+  "name": "vuejs-vitest-template",
+  "description": "a template project for vue.js and vitest and vite",
+  "version": "0.0.1",
   "type": "module",
+  "author": {
+    "name": "secretx500",
+    "email": "secretx500@qq.com",
+    "url": "https://github.com/liaohui5"
+  },
+  "homepage": "https://github.com/lh5template/vuejs-vitest-template",
   "scripts": {
     "dev": "vite . --port=8080",
     "build": "vite build",
@@ -35,8 +41,6 @@
     "vue-router-mock": "^1.1.0"
   },
   "msw": {
-    "workerDirectory": [
-      ""
-    ]
+    "workerDirectory": [""]
   }
 }
